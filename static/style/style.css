@@ -1,0 +1,353 @@
+
+
+
+:root {
+  --vw-const: min(80vw,80vh); 
+  --px-const: 30px;
+  --health-bar-height: calc(var(--vw-const) / 81);
+  --health-bar-width: calc(var(--vw-const) / 3.326);
+
+}
+
+
+
+/* 
+overwrite existing css
+ */
+
+@media screen and (min-width: 1124px) {
+  .columns:not(.is-desktop) {
+      display: flex !important;
+  }
+}
+@media screen and (max-width: 1123px) {
+  .columns:not(.is-desktop) {
+      display: inherit !important;
+  }
+}
+
+@media screen and (min-width: 1124px) {
+  .column.is-two-thirds, .column.is-two-thirds-tablet {
+      flex: none !important;
+      width: 66.6666% !important;
+  }
+}
+@media screen and (max-width: 1124px) {
+  .column.is-two-thirds, .column.is-two-thirds-tablet {
+      flex: inherit !important;
+      width: inherit !important;
+  }
+}
+@media screen and (max-width: 1124px) {
+  .is-hidden-mobile {
+      display: none !important;
+  }
+}
+
+@media screen and (min-width: 1123px) {
+  .is-hidden-mobile {
+      display: inherit !important;
+  }
+}
+
+@media screen and (max-width: 1124px), print {
+  .column.is-one-third, .column.is-one-third-tablet {
+      flex: inherit;
+      width: inherit;
+  }
+}
+
+@media screen and (min-width: 1123px), print {
+  .column.is-one-third, .column.is-one-third-tablet {
+      flex: none;
+      width: 33.3333%;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&family=Ubuntu:wght@300&display=swap');
+body {
+  font-family: 'Ubuntu', sans-serif;
+
+}
+/* , .navbar-brand.is-size-4 */
+
+
+
+p.control{display:none !important}
+#message-input {border-radius: 5px 0 0 5px;}
+
+.navbar-brand .navbar-item, .is-flex.is-justify-content-space-between.mb-2, .block.card.message-card.message-right.kind-user{display:none !important}
+.kind-bot{
+  align-self: center;
+  background-color:transparent;
+  background: radial-gradient(white, rgba(255, 255, 255, .35));  
+  backdrop-filter: blur(5px);
+}
+/* .content table td, .content table th{
+  padding: 0;
+}
+ */
+@media screen and (max-width: 1023px) {
+  #navMenu {
+    border-radius: 0 0 2vw 2vw
+  }
+  .navbar-menu {
+    background: rgba(255, 255, 255, .55);  
+    backdrop-filter: blur(5px);
+    
+  }
+}
+
+/* Reskin necsus to look not terrible */
+
+.kind-bot .card-content{
+  padding: 2vw;
+  
+}
+.navbar.is-info .navbar-item.has-dropdown:hover .navbar-link, .navbar.is-info .navbar-end > a.navbar-item:hover{
+  background: rgba(255, 255, 255, .55);  
+  backdrop-filter: blur(5px);
+  
+}
+.no-scrollbar{
+  overflow-y:clip;
+}
+
+.card.block{
+  border-radius:1vw;
+}
+#bot-list .card-content{
+  border: 0px;
+}
+.card-header{
+  border-radius: 1vw 1vw 0 0 !important;
+}
+.button.is-info.is-fullwidth, .button.is-info{
+  background-color:slategray;
+}
+.card-content{
+  padding:1rem;
+}
+
+#settings{
+  border-radius:1vw;
+  height:89vh;
+  top:2vw;
+  position:relative;
+  background: rgba(255, 255, 255, .55); 
+  
+}
+#settings::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar.is-info{
+  background: rgba(255, 255, 255, .15);  
+  backdrop-filter: blur(5px);
+}
+.navbar-end *, .navbar-item *{color:black !important}
+#necsus {background:linear-gradient(gray, darkslategray);}
+
+img {
+  display: block;
+  position: relative;
+  height: auto;
+}
+
+@font-face {
+  font-family: pkmn_gen_1;
+  src: url("../font/Pokemon-Generation-1.woff"), format("truetype");
+}
+
+/* 
+settings related to pokemon positioning on image
+ */
+
+.player_pkmn_name {
+  font-family: pkmn_gen_1;
+  font-size: calc(var(--vw-const) * 0.05);
+  color: black;
+  position: absolute;
+  top: calc(var(--vw-const) * 0.35);
+  left: calc(var(--vw-const) * 0.5);
+  z-index: 1;
+}
+.opponent_pkmn_name {
+  font-family: pkmn_gen_1;
+  font-size: calc(var(--vw-const) * 0.05);
+  color: black;
+  position: absolute;
+  bottom: calc(var(--vw-const) * 0.78);
+  left: calc(var(--vw-const) * 0.1);
+  z-index: 1;
+}
+.opponent_pkmn_level {
+  font-family: pkmn_gen_1;
+  font-size: calc(var(--vw-const) * 0.04);
+  color: black;
+  position: absolute;
+  top: calc(var(--vw-const) * 0.052);
+  left: calc(var(--vw-const) * 0.26);
+  z-index: 1;
+}
+
+
+
+
+.player_pkmn_level {
+  font-family: pkmn_gen_1;
+  font-size: calc(var(--vw-const) * 0.04);
+  color: black;
+  position: absolute;
+  top: calc(var(--vw-const) * 0.402);
+  left: calc(var(--vw-const) * 0.79);
+  z-index: 1;
+}
+.pkmn_player_health_bar {
+  height: calc((var(--vw-const) / 78) * 2);
+  width: calc(var(--vw-const) / 3.2);
+  background-color: transparent;
+  position: absolute;
+  top: calc(var(--vw-const) * 0.465);
+  left: calc(var(--vw-const) * 0.595);
+  z-index: 8;
+}
+
+.pkmn_health_bar {
+  position:absolute;
+  z-index: 10;
+}
+.pkmn_opponent_health_bar {
+  height: calc((var(--vw-const) / 78) * 2);
+  width: calc(var(--vw-const) / 3.2);   /* full health */ 
+  background-color:   transparent ;
+  position: absolute;
+  top: calc(var(--vw-const) * 0.1154);
+  left: calc(var(--vw-const) * 0.195);
+  z-index: 10;
+}
+
+.player_pkmn_health {
+  font-family: pkmn_gen_1;
+  font-size: calc(var(--vw-const) * 0.04);
+  color: black;
+  position: absolute;
+  top: calc(var(--vw-const) * 0.502);
+  left: calc(var(--vw-const) * 0.63);
+  z-index: 1;
+}
+
+
+td {
+  width: 5%;
+  border: none !important;
+}
+
+.grid-container {
+  width: 100%;
+  height: calc((var(--vw-const) * 0.9 / 3) - var(--px-const));
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.fight-grid-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.pkmn_btn {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  font-size: calc(var(--vw-const) * 0.04);
+  font-family: pkmn_gen_1;
+}
+
+.idk_lets_go {
+  display: flex;
+  padding: calc(var(--vw-const) * 0.019);
+}
+
+.pkmn_fight_btn {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  font-size: calc(var(--vw-const) * 0.04);
+  font-family: pkmn_gen_1;
+}
+
+.main-menu-grid-item {
+  /* border: 2px solid black; */
+  /* height: calc(var(--vw-const)*0.1); */
+  display: grid;
+  place-items: center;
+}
+
+tr {
+  height: calc((var(--vw-const) * 0.9) / 3);
+  display: block;
+  overflow-y: visible;
+}
+
+.pkmn_user {
+  bottom: 17.9%;
+  z-index: 2;
+  width: calc(var(--vw-const) * 0.5);
+  image-rendering: pixelated;
+  position: absolute;
+}
+.pkmn_enemy {
+  bottom: 55%;
+  left: 50%;
+  z-index: 3;
+  width: calc(var(--vw-const) * 0.5);
+  image-rendering: pixelated;
+  position: absolute;
+}
+
+.pkmn_back {
+  border-radius: 0.5vw;
+  z-index: 1;
+  image-rendering: pixelated;
+  width: var(--vw-const);
+}
+.image1 {
+  z-index: 9999;
+}
+.image2 {
+  z-index: 999;
+}
+
+.image3 {
+  z-index: 99;
+}
+
+.tooltip {
+  
+  height: calc(var(--vw-const) * 0.045);
+  position: relative;
+  display: flex;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  color: #fff;
+  position: absolute;
+  left: calc(var(--vw-const) * 0.45 * -1);
+  z-index: 999;
+  width: calc(var(--vw-const) * 0.52);
+  top: calc(var(--vw-const) * 0.25 * -1);
+}
+.tooltip_img {
+  border-radius: 0.5vw;
+
+  image-rendering: pixelated;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

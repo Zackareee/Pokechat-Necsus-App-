@@ -1,0 +1,163 @@
+:root {--vw-const: 50vw;--px-const: 50px;}
+
+img {
+  display: block;
+  position: relative;
+  height: auto;
+}
+
+@font-face {
+  font-family: pkmn_gen_1;
+  src: url("../static/Pokemon-Generation-1.woff"), format("truetype");
+}
+
+/* td {
+  height: calc(45vw / 3);
+  display: block;
+  overflow-y: clip;
+} */
+.player_pkmn_name {
+  font-family: pkmn_gen_1;
+  font-size: calc(var(--vw-const) * 0.05);
+  color: black;
+  position: absolute;
+  top: calc(var(--vw-const) * 0.35);
+  left: calc(var(--vw-const) * 0.5);
+  z-index: 1;
+}
+.opponent_pkmn_name {
+  font-family: pkmn_gen_1;
+  font-size: calc(var(--vw-const) * 0.05);
+  color: black;
+  position: absolute;
+  bottom: calc(var(--vw-const) * 0.78);
+  left: calc(var(--vw-const) * 0.1);
+  z-index: 1;
+}
+.opponent_pkmn_level {
+  font-family: pkmn_gen_1;
+  font-size: calc(var(--vw-const) * 0.04);
+  color: black;
+  position: absolute;
+  top: calc(var(--vw-const) * 0.052);
+  left: calc(var(--vw-const) * 0.26);
+  z-index: 1;
+}
+
+.player_pkmn_level {
+  font-family: pkmn_gen_1;
+  font-size: calc(var(--vw-const) * 0.04);
+  color: black;
+  position: absolute;
+  top: calc(var(--vw-const) * 0.402);
+  left: calc(var(--vw-const) * 0.79);
+  z-index: 1;
+}
+
+td {
+  width: 5%;
+  border: none !important;
+}
+
+.grid-container {
+  width: 100%;
+  height: calc((var(--vw-const) * 0.9 / 3) - var(--px-const));
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.fight-grid-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.pkmn_btn {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  font-size: calc(var(--vw-const) * 0.04);
+  font-family: pkmn_gen_1;
+}
+
+.idk_lets_go {
+  display: flex;
+  padding: calc(var(--vw-const) * 0.019);
+}
+
+.pkmn_fight_btn {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  font-size: calc(var(--vw-const) * 0.04);
+  font-family: pkmn_gen_1;
+}
+
+.main-menu-grid-item {
+  /* border: 2px solid black; */
+  display: grid;
+  place-items: center;
+}
+
+tr {
+  height: calc((var(--vw-const) * 0.9) / 3);
+  display: block;
+  overflow-y: visible;
+}
+
+.pkmn_user {
+  bottom: 25%;
+  z-index: 2;
+  width: calc(var(--vw-const) * 0.5);
+  image-rendering: pixelated;
+  position: absolute;
+}
+.pkmn_enemy {
+  bottom: 55%;
+  left: 50%;
+  z-index: 3;
+  width: calc(var(--vw-const) * 0.5);
+  image-rendering: pixelated;
+  position: absolute;
+}
+
+.pkmn_back {
+  z-index: 1;
+  image-rendering: pixelated;
+  width: var(--vw-const);
+}
+.image1 {
+  z-index: 9999;
+}
+.image2 {
+  z-index: 999;
+}
+
+.image3 {
+  z-index: 99;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  color: #fff;
+  position: absolute;
+  left: calc(var(--vw-const) * 0.45 * -1);
+  z-index: 999;
+  width: calc(var(--vw-const) * 0.52);
+  top: calc(var(--vw-const) * 0.25 * -1);
+}
+.tooltip_img {
+  image-rendering: pixelated;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
