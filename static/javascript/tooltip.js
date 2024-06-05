@@ -2,8 +2,9 @@ function reloadAll()
 {
   reloadJs();
   reloadCss();
-  
 }
+
+
 // hide menu bar - not useful 
 function hideMenu() 
 {
