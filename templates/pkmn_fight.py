@@ -1,22 +1,23 @@
-from pkmn.interface import get_pkmn_images, get_pkmn_levels, get_pkmn_names, get_pkmn_health
+from pkmn.interface import get_pkmn_images, get_pkmn_levels, get_pkmn_names, get_pkmn_health, get_current_pkmn
 
 
-def fight(vw_const, game):
+def render_fight(vw_const, game):
    pkmn_names = get_pkmn_names(game)
-   print(pkmn_names)
-   print(list(game['player']['pokemon'][pkmn_names[0]]['moves'].keys()))
-   moves_list = list(game['player']['pokemon'][pkmn_names[0]]['moves'].keys())
-   html_moves = ""
+   player_pkmn, opponent_pkmn = get_current_pkmn(game)
+   player_moves = []
+   for i in player_pkmn.moves:
+      player_moves.append(i)
    pkmn_health = get_pkmn_health(game)
    pkmn_images = get_pkmn_images(game)
    pkmn_levels = get_pkmn_levels(game)
    print(pkmn_levels)
    # print(pkmn_names)
    # pkmn_names = get_pkmn_names()
-   for i in moves_list:
+   html_moves = ""
+   for i in player_moves:
       html_moves += f"""<div class="tooltip">
       <span class="tooltiptext"><img class="tooltip_img" src="/static/images/tooltip.png"></img></span>
-      <button value="{i.capitalize()}" name="fight_menu" class = "tooltip pkmn_fight_btn small_btn"> {i.capitalize() }</button>
+      <button value="{i.name.capitalize()}" name="fight_menu" class = "tooltip pkmn_fight_btn small_btn"> {i.name.capitalize() }</button>
     </div>"""
    return {
        "author": "PokemoN CoolS System",
