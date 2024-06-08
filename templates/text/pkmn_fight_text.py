@@ -1,7 +1,7 @@
 from pkmn.interface import get_pkmn_images, get_pkmn_levels, get_pkmn_names, get_pkmn_health, get_current_pkmn
 
 
-def render_fight(vw_const, game):
+def render_fight_text(vw_const, game, text, index):
    pkmn_names = get_pkmn_names(game)
    player_pkmn, opponent_pkmn = get_current_pkmn(game)
    player_moves = []
@@ -13,17 +13,11 @@ def render_fight(vw_const, game):
    print(pkmn_levels)
    # print(pkmn_names)
    # pkmn_names = get_pkmn_names()
-   html_moves = ""
-   for i in player_moves:
-      html_moves += f"""<div class="tooltip">
-      <span class="tooltiptext"><img class="tooltip_img" src="/static/images/tooltip.png"></img></span>
-      <button value="{i.name.capitalize()}" name="fight_menu" class = "tooltip pkmn_fight_btn small_btn"> {i.name.capitalize() }</button>
-    </div>"""
    return {
        "author": "PokemoN CoolS System",
        "text": f'''
       <div style="position:relative; display:inline-block;">
-       <img onload="(reloadJs || console.log)()" class="pkmn_back" src="../static/images/pkmn_back.png"></img>
+       <img onload="(reloadJs || console.log)()" class="pkmn_back" src="../static/images/pkmn_tooltip_back.png"></img>
        <img class="pkmn_user" src="{pkmn_images[0]}"></img>
        <img class="pkmn_enemy" src="{pkmn_images[1]}"></img>
        <p class="opponent_pkmn_name" style="">{pkmn_names[1].upper()}</p>
@@ -49,19 +43,16 @@ def render_fight(vw_const, game):
 
        <table style="position: absolute; z-index: 999; top: 0%;">
           <tbody style="display:block; overflow-y:visible; height:{0.9*vw_const}vw">
+             <tr></tr>
+             <tr></tr>
              <tr>
-             </tr>
-             <tr>
-             </tr>
-             <tr>
-                <td style="width:calc(var(--vw-const)/2.3)"></td>
-                <td style="max-width:calc(var(--vw-const)/1.6); width:{0.6*vw_const}vw;">
-                   <form style="padding:calc(var(--vw-const)/25); width:calc((var(--vw-const)/1.6) - 0.75em); >
-                      <div class="fight-grid-container">
-                         {html_moves}
-                      </div>
-                   </form>
-                </td>
+             <td>
+                <form>
+                   <div style="padding:calc(var(--vw-const)/25);" class="fight-grid-container">
+                      <button value="{index}" style="line-break:anywhere" name="fight_menu" class = "pkmn_fight_btn small_btn">{text}</button>
+                   </div>
+                </form>
+               </td>
              </tr>
           </tbody>
        </table>

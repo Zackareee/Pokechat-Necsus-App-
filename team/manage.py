@@ -5,7 +5,7 @@ from pkmn.values import pkmn_move_list, pkmn_pokedex
 from pkmn.manage import Stats, Move, Pkmn
 
 
-def move_from_json(move_name):
+def move_from_name(move_name):
     move_details = pkmn_move_list[move_name]
     move = Move(name=move_name,
                 damage_class=move_details["damage_class"],
@@ -19,7 +19,7 @@ def move_from_json(move_name):
 def moves_from_json(json_data):
     moves = []
     for i in json_data:
-        moves.append(move_from_json(i))
+        moves.append(move_from_name(i))
     return moves
 
 
@@ -36,8 +36,8 @@ def stats_from_json(json_data):
 def make_a_pokemon(name, index, random=True):
     pkmn_request = json.loads(
         requests.get(f"https://pokeapi.co/api/v2/pokemon/{name}").text)
-    sprites_request = pkmn_request['sprites']['versions']['generation-i'][
-        'red-blue']
+    sprites_request = pkmn_request['sprites']['versions']
+    # ['generation-i']['red-blue']
     stats_request = pkmn_request['stats']
 
     types = [
@@ -51,7 +51,7 @@ def make_a_pokemon(name, index, random=True):
     active_stats = stats_from_json(stats_request)
 
     return Pkmn(name=name,
-                level=rand.randint(50, 70),
+                level=rand.randint(5, 7),
                 sprites=sprites_request,
                 turn_order=index,
                 types=types,
@@ -62,6 +62,7 @@ def make_a_pokemon(name, index, random=True):
 
 def make_a_pokemon_team(count=1, turn_order=False):
     pkmn_team = rand.choices(list(pkmn_pokedex.keys()), k=count)
+    # pkmn_team = ["mew"]
     pkmn_team = dict((i, pkmn_pokedex[i]) for i in pkmn_team)
     team = []
     for index, i in enumerate(pkmn_team):

@@ -15,8 +15,8 @@ def setup(vw_const, game, bool=False):
            <img {'onload="(reloadJs || console.log)()"' if bool else ""} class="pkmn_back" src="/static/images/pkmn_back.png"></img>
            <img class="pkmn_user" src="{pkmn_images[0]}"></img>
            <img class="pkmn_enemy" src="{pkmn_images[1]}"></img>
-           <p class="opponent_pkmn_name" style="">{pkmn_names[1]}</p>
-           <p class="player_pkmn_name" style="">{pkmn_names[0]}</p>
+           <p class="opponent_pkmn_name" style="">{pkmn_names[1].upper()}</p>
+           <p class="player_pkmn_name" style="">{pkmn_names[0].upper()}</p>
            <p class="opponent_pkmn_level" style="">{pkmn_levels[1]}</p>
            <p class="player_pkmn_level" style="">{pkmn_levels[0]}</p>
            <p class="player_pkmn_health" >{pkmn_health[0][0]}/{pkmn_health[0][1]}</p>

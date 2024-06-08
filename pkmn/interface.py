@@ -1,11 +1,12 @@
 from pkmn.manage import Stats, Pkmn, Move
 
 
-def get_pkmn_images(game):
+def get_pkmn_images(game, version='generation-i', game_v='red-blue'):
   player_pkmn, opponent_pkmn = get_current_pkmn(game)
+
   return [
-      player_pkmn.sprites['back_transparent'],
-      opponent_pkmn.sprites['front_transparent']
+      player_pkmn.sprites[version][game_v]['back_transparent'],
+      opponent_pkmn.sprites[version][game_v]['front_transparent']
   ]
 
 
@@ -15,15 +16,8 @@ def get_pkmn_levels(game):
 
 
 def get_pkmn_names(game):
-  player = ""
-  for i in game['player']['pokemon']:
-    player = i.name
-
-  opponent = ""
-  for i in game['opponent']['pokemon']:
-    opponent = i.name
-
-  return [player, opponent]
+  player_pkmn, opponent_pkmn = get_current_pkmn(game)
+  return [player_pkmn.name, opponent_pkmn.name]
 
 
 def get_pkmn_health(game):
@@ -47,3 +41,18 @@ def get_current_pkmn(game):
       opponent_pokemon = i
 
   return [player_pokemon, opponent_pokemon]
+
+
+def get_pkmn_by_turn_order(game, order, player=True):
+  target_pkmn = ""
+  if player == True:
+    for i in game['player']['pokemon']:
+      if i.turn_order == int(order):
+        target_pkmn = i
+        return target_pkmn
+  else:
+    for i in game['opponent']['pokemon']:
+      if i.name == order:
+        target_pkmn = i
+        return target_pkmn
+  return target_pkmn

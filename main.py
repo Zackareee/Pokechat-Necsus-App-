@@ -1,3 +1,4 @@
+from types import MethodType
 from flask import Flask, request
 import random
 from flask_cors import CORS
@@ -5,13 +6,14 @@ from flask_cors import CORS
 from team.manage import make_a_pokemon_team
 
 from pkmn.values import health_color
-from pkmn.interface import get_pkmn_images, get_pkmn_levels, get_pkmn_names, get_pkmn_health, get_current_pkmn
+from pkmn.interface import get_pkmn_images, get_pkmn_levels, get_pkmn_names, get_pkmn_health, get_current_pkmn, get_pkmn_by_turn_order
 from pkmn.attack.manage import handle_attack
 # from pkmn.attack.tests.abrajynx import game
 
 from templates.setup import setup
-from templates.pkmn_party import party
 from templates.pkmn_fight import render_fight
+from templates.pkmn_party import render_party
+from templates.text.pkmn_fight_text import render_fight_text
 # from templates.default_game import game
 
 #   functions
@@ -24,10 +26,11 @@ from templates.pkmn_fight import render_fight
 app = Flask(__name__)
 CORS(app)
 game = {
+    'game_text': [],
     'user': '',
     'vw_const': 50,
     "player": {
-        "pokemon": make_a_pokemon_team(count=1, turn_order=True)
+        "pokemon": make_a_pokemon_team(count=2, turn_order=True)
     },
     "opponent": {
         "pokemon": make_a_pokemon_team(count=1, turn_order=True)
@@ -42,18 +45,45 @@ vw_const = game['vw_const']
 #todo - make modular, instead of putting html all in one place.
 
 
-def handle_menu(form_data):
+def handle_menu(form_data, method_type):
+  print(form_data)
+  player_pkmn, opponent_pkmn = get_current_pkmn(game)
   if "main_menu" in form_data:
+
     if "fight" in form_data["main_menu"]:
       return render_fight(vw_const, game)
+
+    elif "pkmn" in form_data["main_menu"]:
+      return render_party(vw_const, game)
+
   elif "fight_menu" in form_data:
-    handle_attack(game, form_data["fight_menu"])
+    if form_data["fight_menu"].isnumeric():
+      current_state = int(form_data["fight_menu"])
+      print(current_state)
+      if len(game['game_text']) > current_state + 1:
+        return render_fight_text(vw_const, game,
+                                 game['game_text'][current_state + 1],
+                                 current_state + 1)
+      else:
+        return setup(vw_const, game, True)
+    else:
+      game['game_text'] = []
+      game['game_text'] += handle_attack(game, form_data["fight_menu"])
+      game['game_text'] += handle_attack(game,
+                                         random.choice(
+                                             opponent_pkmn.moves).name,
+                                         attacking_opponent=False)
+      print(game['game_text'])
+      return render_fight_text(vw_const, game, game['game_text'][0], 0)
+
+  elif "party_swap" in form_data:
+    turn_order = form_data["party_swap"]
+    player_pkmn, opponent_pkmn = get_current_pkmn(game)
+    target_pkmn = get_pkmn_by_turn_order(game, turn_order)
+    player_pkmn.turn_order, target_pkmn.turn_order = target_pkmn.turn_order, player_pkmn.turn_order
     return setup(vw_const, game, True)
-  # elif "party_swap" in form_data:
-  #   pass
 
 
-#return json of game state for debugging
 @app.route('/game', methods=["GET", "POST"])
 def play():
   global game
@@ -64,15 +94,13 @@ def play():
 def index():
   global game
   global vw_const
-
   pkmn_names = get_pkmn_names(game)
   response_json = request.json
-  print(response_json)
 
   if "form_data" not in response_json:
     return setup(vw_const, game, True)
   else:
-    return handle_menu(response_json['form_data'])
+    return handle_menu(response_json['form_data'], request.method)
 
 
 # if 'form_data' in response_json:

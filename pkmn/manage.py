@@ -24,7 +24,7 @@ class Move:
   def __init__(self, name, damage_class, power, pp, type, url):
     self.name = name
     self.damage_class = damage_class
-    self.power = power
+    self.power = power if power != None else 1
     self.pp = pp
     self.type = type
     self.url = url
